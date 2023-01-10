@@ -14,4 +14,11 @@ return function (ContainerBuilder $containerBuilder) {
     $container[LoggerInterface::class] = DI\factory(LoggerFactory::class);
     $container[PhpRenderer::class] = DI\factory(RendererFactory::class);
     $containerBuilder->addDefinitions($container);
+
+    // db connection
+    $container['db'] = function () {
+        $db = new \PDO('mysql:host=DB; dbname=tech_skills', 'root', 'password');
+        $db->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
+        return $db;
+    };
 };
