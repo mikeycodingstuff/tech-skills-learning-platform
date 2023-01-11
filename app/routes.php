@@ -16,8 +16,6 @@ return function (App $app) {
         return $renderer->render($response, "index.php", $args);
     });
 
-    $app->get('/courses', CoursesAPIController::class);
-
-    $app->get('/topics', 'GetTopicsController');
+    $app->get('/api/topics', 'GetTopicsController');
 
 };
