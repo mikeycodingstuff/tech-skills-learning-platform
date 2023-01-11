@@ -4,6 +4,8 @@ declare(strict_types=1);
 use App\Factories\LoggerFactory;
 use App\Factories\PDOFactory;
 use App\Factories\RendererFactory;
+use App\Factories\TopicsModelFactory;
+use App\Factories\GetTopicsControllerFactory;
 use DI\ContainerBuilder;
 use Psr\Log\LoggerInterface;
 use Slim\Views\PhpRenderer;
@@ -22,8 +24,8 @@ return function (ContainerBuilder $containerBuilder) {
     };
 
     // factories
-    $container['TopicsModel'] = DI\Factory('App\Factories\TopicsModelFactory');
-    $container['GetTopicsController'] = DI\Factory('App\Factories\GetTopicsControllerFactory');
+    $container['TopicsModel'] = DI\Factory(TopicsModelFactory::class);
+    $container['GetTopicsController'] = DI\Factory(GetTopicsControllerFactory::class);
 
     $containerBuilder->addDefinitions($container);
 };
