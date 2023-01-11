@@ -22,7 +22,7 @@ return function (App $app) {
         $topicsModel = $container->get('TopicsModel');
         $topics = $topicsModel->getAllTopics();
         $responseBody = [
-            'message' => 'Courses successfully retrieved from db.',
+            'message' => 'Topics successfully retrieved from db.',
             'status' => 200,
             'data' => $topics
         ];
