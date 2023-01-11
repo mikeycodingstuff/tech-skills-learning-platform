@@ -18,15 +18,6 @@ return function (App $app) {
 
     $app->get('/courses', CoursesAPIController::class);
 
-    $app->get('/topics', function ($request, $response, $args) use ($container) {
-        $topicsModel = $container->get('TopicsModel');
-        $topics = $topicsModel->getAllTopics();
-        $responseBody = [
-            'message' => 'Topics successfully retrieved from db.',
-            'status' => 200,
-            'data' => $topics
-        ];
-        return $response->withJson($responseBody);
-    });
+    $app->get('/topics', 'GetTopicsController');
 
 };

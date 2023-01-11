@@ -23,6 +23,7 @@ return function (ContainerBuilder $containerBuilder) {
 
     // factories
     $container['TopicsModel'] = DI\Factory('App\Factories\TopicsModelFactory');
+    $container['GetTopicsController'] = DI\Factory('App\Factories\GetTopicsControllerFactory');
 
     $containerBuilder->addDefinitions($container);
 };
