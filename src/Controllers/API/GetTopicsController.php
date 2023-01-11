@@ -17,12 +17,21 @@ class GetTopicsController
 
     public function __invoke(RequestInterface $request, ResponseInterface $response): ResponseInterface
     {
+        $getData = $request->getQueryParams();
         $topics = $this->topicsModel->getAllTopics();
+
+        if (isset($getData['learning']) && $getData['learning'] === 'true') {
+            $topics = $this->topicsModel->filterLearningTopic($topics);
+        } elseif (isset($getData['learning']) && $getData['learning'] === 'false') {
+            $topics = $this->topicsModel->filterNotLearningTopic($topics);
+        }
+
         $responseBody = [
             'message' => 'Topics successfully retrieved from db.',
             'status' => 200,
             'data' => $topics
         ];
+        
         return $response->withJson($responseBody);
     }
 }

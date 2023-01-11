@@ -20,4 +20,22 @@ class TopicsModel
         $query->execute();
         return $query->fetchAll();
     }
+
+    public function filterLearningTopic(array $topics): array
+    {
+        $topics = array_filter($topics, function ($topic) {
+            return $topic['status'] === 'learning';
+        });
+
+        return $topics;
+    }
+
+    public function filterNotLearningTopic(array $topics): array
+    {
+        $topics = array_filter($topics, function ($topic) {
+            return $topic['status'] === 'not learning';
+        });
+
+        return $topics;
+    }
 }
