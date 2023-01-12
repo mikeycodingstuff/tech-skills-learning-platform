@@ -18,12 +18,12 @@ class GetTopicsController
     public function __invoke(RequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $getData = $request->getQueryParams();
+        $learning = filter_var(($getData['learning']), FILTER_VALIDATE_BOOLEAN);
+
         $topics = $this->topicModel->getAllTopics();
 
-        if (isset($getData['learning']) && $getData['learning'] === 'true') {
-            $topics = $this->topicModel->filterLearningTopic($topics);
-        } elseif (isset($getData['learning']) && $getData['learning'] === 'false') {
-            $topics = $this->topicModel->filterNotLearningTopic($topics);
+        if (isset($getData['learning'])) {
+            $topics = $this->topicModel->filterLearningTopic($topics, $learning);
         }
 
         $responseBody = [

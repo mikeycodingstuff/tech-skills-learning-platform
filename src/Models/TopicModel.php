@@ -13,6 +13,11 @@ class TopicModel
         $this->db = $db;
     }
 
+    /**
+     * Gets all topics from the database
+     *
+     * @return array
+     */
     public function getAllTopics(): array
     {
         $query = $this->db->prepare(
@@ -23,19 +28,17 @@ class TopicModel
         return $query->fetchAll();
     }
 
-    public function filterLearningTopic(array $topics): array
+    public function filterLearningTopic(array $topics, bool $learning): array
     {
-        $topics = array_filter($topics, function ($topic) {
-            return $topic['status'] === 'learning';
-        });
-        return $topics;
-    }
-
-    public function filterNotLearningTopic(array $topics): array
-    {
-        $topics = array_filter($topics, function ($topic) {
-            return $topic['status'] === 'not learning';
-        });
+        if ($learning) {
+            $topics = array_filter($topics, function ($topic) {
+                return $topic['status'] === 'learning';
+            });
+        } elseif (!$learning) {
+            $topics = array_filter($topics, function ($topic) {
+                return $topic['status'] === 'not learning';
+            });
+        }
         return $topics;
     }
 }
