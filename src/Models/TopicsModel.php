@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use PDO;
+
 class TopicsModel
 {
-    private $db;
+    private PDO $db;
 
-    public function __construct(\PDO $db)
+    public function __construct(PDO $db)
     {
         $this->db = $db;
     }
