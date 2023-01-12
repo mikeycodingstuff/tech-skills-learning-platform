@@ -28,13 +28,20 @@ class TopicModel
         return $query->fetchAll();
     }
 
-    public function filterLearningTopic(array $topics, bool $learning): array
+    /**
+     * Filters topics based on learning status
+     *
+     * @param array $topics
+     * @param boolean $learning
+     * @return array returns array of topics with learning status or not learning status
+     */
+    public function filterLearningTopic(array $topics, bool $learningStatus): array
     {
-        if ($learning) {
+        if ($learningStatus) {
             $topics = array_filter($topics, function ($topic) {
                 return $topic['status'] === 'learning';
             });
-        } elseif (!$learning) {
+        } elseif (!$learningStatus) {
             $topics = array_filter($topics, function ($topic) {
                 return $topic['status'] === 'not learning';
             });
