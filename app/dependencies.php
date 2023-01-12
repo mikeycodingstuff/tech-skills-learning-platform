@@ -32,8 +32,8 @@ return function (ContainerBuilder $containerBuilder) {
     $container[db::class] = DI\factory(PDOFactory::class);
 
     // factories
-    $container['TopicsModel'] = DI\Factory(TopicsModelFactory::class);
-    $container['GetTopicsController'] = DI\Factory(GetTopicsControllerFactory::class);
+    $container[TopicsModel::class] = DI\Factory(TopicsModelFactory::class);
+    $container[GetTopicsController::class] = DI\Factory(GetTopicsControllerFactory::class);
 
     $containerBuilder->addDefinitions($container);
 };
