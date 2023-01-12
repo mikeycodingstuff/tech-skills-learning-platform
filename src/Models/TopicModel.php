@@ -48,4 +48,26 @@ class TopicModel
         }
         return $topics;
     }
+    /**
+     * Adds a new topic to the database
+     *
+     * @param array $topic
+     * @return void
+     */
+    public function addTopic(array $topic) {
+        $query = $this->db->prepare(
+            "INSERT INTO `topics` (
+                `topic_name`, `status`, `resources`, `deleted`
+                )
+                VALUES (
+                :topic_name, :status, :resources, :deleted
+                );
+        ");
+
+        $query->bindParam(':topic_name', $topic['topic_name']);
+        $query->bindParam(':status', $topic['status']);
+        $query->bindParam(':resources', $topic['resources']);
+        $query->bindParam(':deleted', $topic['deleted']);
+        return $query->execute();
+    }
 }
