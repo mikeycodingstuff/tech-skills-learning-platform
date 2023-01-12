@@ -48,6 +48,7 @@ class TopicModel
         }
         return $topics;
     }
+    
     /**
      * Adds a new topic to the database
      *
