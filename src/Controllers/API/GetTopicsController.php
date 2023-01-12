@@ -2,28 +2,28 @@
 
 namespace App\Controllers\API;
 
-use App\Models\TopicsModel;
+use App\Models\TopicModel;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class GetTopicsController
 {
-    private TopicsModel $topicsModel;
+    private TopicModel $topicModel;
 
-    public function __construct(TopicsModel $topicsModel)
+    public function __construct(TopicModel $topicModel)
     {
-        $this->topicsModel = $topicsModel;
+        $this->topicModel = $topicModel;
     }
 
     public function __invoke(RequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $getData = $request->getQueryParams();
-        $topics = $this->topicsModel->getAllTopics();
+        $topics = $this->topicModel->getAllTopics();
 
         if (isset($getData['learning']) && $getData['learning'] === 'true') {
-            $topics = $this->topicsModel->filterLearningTopic($topics);
+            $topics = $this->topicModel->filterLearningTopic($topics);
         } elseif (isset($getData['learning']) && $getData['learning'] === 'false') {
-            $topics = $this->topicsModel->filterNotLearningTopic($topics);
+            $topics = $this->topicModel->filterNotLearningTopic($topics);
         }
 
         $responseBody = [

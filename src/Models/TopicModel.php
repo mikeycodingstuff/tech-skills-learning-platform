@@ -4,7 +4,7 @@ namespace App\Models;
 
 use PDO;
 
-class TopicsModel
+class TopicModel
 {
     private PDO $db;
 
