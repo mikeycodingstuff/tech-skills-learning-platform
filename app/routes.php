@@ -7,6 +7,6 @@ use Slim\App;
 
 return function (App $app) {
     // API routes
-    $app->get('/api/topics', GetTopicsController::class);
+    $app->get('/api/topics[/{id}]', GetTopicsController::class);
     $app->post('/api/topics', AddTopicController::class);
 };

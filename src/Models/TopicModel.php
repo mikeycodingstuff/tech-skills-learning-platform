@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use PDO;
+use App\Entities\TopicEntity;
 
 class TopicModel
 {
@@ -48,14 +49,15 @@ class TopicModel
         }
         return $topics;
     }
-    
+
     /**
      * Adds a new topic to the database
      *
      * @param array $topic
      * @return void
      */
-    public function addTopic(array $topic) {
+    public function addTopic(array $topic)
+    {
         $query = $this->db->prepare(
             "INSERT INTO `topics` (
                 `topic_name`, `status`, `resources`, `deleted`
@@ -70,5 +72,18 @@ class TopicModel
         $query->bindParam(':resources', $topic['resources']);
         $query->bindParam(':deleted', $topic['deleted']);
         return $query->execute();
+    }
+
+    public function getTopicById(int $id)
+    {
+        $query = $this->db->prepare(
+            "SELECT `id`, `topic_name`, `status`, `resources`, `deleted`
+                FROM `topics`
+                    WHERE `id` = :id;
+        ");
+        $query->bindParam(':id', $id);
+        $query->setFetchMode(PDO::FETCH_CLASS, TopicEntity::class);
+        $query->execute();
+        return $query->fetchAll();
     }
 }

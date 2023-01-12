@@ -15,15 +15,19 @@ class GetTopicsController
         $this->topicModel = $topicModel;
     }
 
-    public function __invoke(RequestInterface $request, ResponseInterface $response): ResponseInterface
+    public function __invoke(RequestInterface $request, ResponseInterface $response,  array $args): ResponseInterface
     {
         $getData = $request->getQueryParams();
-        
-        $topics = $this->topicModel->getAllTopics();
-        
-        if (isset($getData['learning'])) {
-            $learningStatus = filter_var(($getData['learning']), FILTER_VALIDATE_BOOLEAN);
-            $topics = $this->topicModel->filterLearningTopic($topics, $learningStatus);
+        if (isset($args['id'])) {
+            $id = $args['id'];
+            $result = $this->topicModel->getTopicById($id);
+        } else {
+            $topics = $this->topicModel->getAllTopics();
+            
+            if (isset($getData['learning'])) {
+                $learningStatus = filter_var(($getData['learning']), FILTER_VALIDATE_BOOLEAN);
+                $topics = $this->topicModel->filterLearningTopic($topics, $learningStatus);
+            }
         }
 
         $responseBody = [
