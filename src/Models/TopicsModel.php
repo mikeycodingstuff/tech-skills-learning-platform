@@ -28,7 +28,6 @@ class TopicsModel
         $topics = array_filter($topics, function ($topic) {
             return $topic['status'] === 'learning';
         });
-
         return $topics;
     }
 
@@ -37,7 +36,6 @@ class TopicsModel
         $topics = array_filter($topics, function ($topic) {
             return $topic['status'] === 'not learning';
         });
-
         return $topics;
     }
 }
