@@ -20,20 +20,20 @@ class GetTopicsController
         $getData = $request->getQueryParams();
         if (isset($args['id'])) {
             $id = $args['id'];
-            $result = $this->topicModel->getTopicById($id);
+            $data = $this->topicModel->getTopicById($id);
         } else {
-            $topics = $this->topicModel->getAllTopics();
+            $data = $this->topicModel->getAllTopics();
             
             if (isset($getData['learning'])) {
                 $learningStatus = filter_var(($getData['learning']), FILTER_VALIDATE_BOOLEAN);
-                $topics = $this->topicModel->filterLearningTopic($topics, $learningStatus);
+                $data = $this->topicModel->filterLearningTopic($data, $learningStatus);
             }
         }
 
         $responseBody = [
             'message' => 'Topics successfully retrieved from db.',
             'status' => 200,
-            'data' => $topics
+            'data' => $data
         ];
         
         return $response->withJson($responseBody);

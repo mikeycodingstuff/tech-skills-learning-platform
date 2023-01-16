@@ -21,7 +21,7 @@ class TopicEntity
     /**
      * Get the value of topic_name
      */ 
-    public function getTopic_name()
+    public function getTopicName()
     {
         return $this->topic_name;
     }
