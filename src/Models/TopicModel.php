@@ -82,7 +82,6 @@ class TopicModel
                     WHERE `id` = :id;
         ");
         $query->bindParam(':id', $id);
-        $query->setFetchMode(PDO::FETCH_CLASS, TopicEntity::class);
         $query->execute();
         return $query->fetchAll();
     }
