@@ -43,7 +43,7 @@ class GetTopicsController
         
             if (isset($getData['learning'])) {
                 $learningStatus = filter_var(($getData['learning']), FILTER_VALIDATE_BOOLEAN);
-                $responseBody['data'] = $this->topicModel->filterLearningTopic($allTopics, $learningStatus);
+                $responseBody['data'] = $this->topicModel->filterLearningTopic($responseBody['data'], $learningStatus);
             }
         }
         
