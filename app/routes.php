@@ -9,4 +9,5 @@ return function (App $app) {
     // API routes
     $app->get('/api/topics[/{id}]', GetTopicsController::class);
     $app->post('/api/topics', AddTopicController::class);
+    $app->delete('/api/topics[/{id}]', DeleteTopisController::class);
 };
