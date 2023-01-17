@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use PDO;
 use App\Entities\TopicEntity;
+use App\CustomExceptions\InvalidIdException;
+use PDO;
 
 class TopicModel
 {
@@ -83,6 +84,10 @@ class TopicModel
         ");
         $query->bindParam(':id', $id);
         $query->execute();
-        return $query->fetchAll();
+        $result = $query->fetchAll();
+        if (!$result) {
+            throw new InvalidIdException();
+        }
+        return $result;
     }
 }

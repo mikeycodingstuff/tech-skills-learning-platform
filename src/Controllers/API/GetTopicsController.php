@@ -2,6 +2,7 @@
 
 namespace App\Controllers\API;
 
+use App\CustomExceptions\InvalidIdException;
 use App\Models\TopicModel;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -18,23 +19,43 @@ class GetTopicsController
     public function __invoke(RequestInterface $request, ResponseInterface $response,  array $args): ResponseInterface
     {
         $getData = $request->getQueryParams();
+
+        $responseBody = [
+            'success' => false,
+            'message' => 'Something went wrong.',
+            'status' => 200,
+            'data' => []
+        ];
+        
         if (isset($args['id'])) {
-            $id = $args['id'];
-            $data = $this->topicModel->getTopicById($id);
+            try {
+                $data = $this->topicModel->getTopicById($args['id']);
+                $responseBody = [
+                    'success' => true,
+                    'message' => 'Topic successfully retrieved from database.',
+                    'status' => 200,
+                    'data' => $data
+                ];
+            } catch (InvalidIdException $e) {
+                $responseBody['message'] = 'Invalid Id';
+                $responseBody['status'] = 404;
+            }
         } else {
-            $data = $this->topicModel->getAllTopics();
+            $allTopics = $this->topicModel->getAllTopics();
+
+            $responseBody = [
+                'success' => true,
+                'message' => 'Topics successfully retrieved from database.',
+                'status' => 200,
+                'data' => $allTopics
+            ];
             
             if (isset($getData['learning'])) {
                 $learningStatus = filter_var(($getData['learning']), FILTER_VALIDATE_BOOLEAN);
-                $data = $this->topicModel->filterLearningTopic($data, $learningStatus);
+                $filteredTopics = $this->topicModel->filterLearningTopic($allTopics, $learningStatus);
+                $responseBody['data'] = $filteredTopics;
             }
         }
-
-        $responseBody = [
-            'message' => 'Topics successfully retrieved from db.',
-            'status' => 200,
-            'data' => $data
-        ];
         
         return $response->withJson($responseBody);
     }
