@@ -28,6 +28,7 @@ class TopicModel
                     WHERE `deleted` = '0';"
         );
         $query->execute();
+        
         return $query->fetchAll();
     }
 
@@ -49,6 +50,7 @@ class TopicModel
                 return $topic['status'] === 'not learning';
             });
         }
+
         return $topics;
     }
 
@@ -73,6 +75,7 @@ class TopicModel
         $query->bindParam(':status', $topic['status']);
         $query->bindParam(':resources', $topic['resources']);
         $query->bindParam(':deleted', $topic['deleted']);
+
         return $query->execute();
     }
 
@@ -115,6 +118,7 @@ class TopicModel
             "UPDATE `topics`
                 SET `deleted` = '1';"
         );
+
         return $query->execute();
     }
     
