@@ -67,14 +67,13 @@ class TopicModel
                 `topic_name`, `status`, `resources`, `deleted`
                 )
                 VALUES (
-                :topic_name, :status, :resources, :deleted
+                :topic_name, :status, :resources, 0
                 );"
         );
 
         $query->bindParam(':topic_name', $topic['topic_name']);
         $query->bindParam(':status', $topic['status']);
         $query->bindParam(':resources', $topic['resources']);
-        $query->bindParam(':deleted', $topic['deleted']);
 
         return $query->execute();
     }
