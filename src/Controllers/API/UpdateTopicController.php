@@ -3,6 +3,7 @@
 namespace App\Controllers\API;
 
 use App\CustomExceptions\InvalidIdException;
+use App\CustomExceptions\MissingTopicException;
 use App\Models\TopicModel;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -28,11 +29,14 @@ class UpdateTopicController
         $updatedTopic = $request->getParsedBody();
 
         try {
+            $responseBody['data'] = $this->topicModel->getTopicById($updatedTopic['id']);
             $this->topicModel->updateTopicById($updatedTopic);
             $responseBody['success'] = true;
             $responseBody['message'] = 'Topic successfully updated in database.';
-            $responseBody['data'] = $this->topicModel->getTopicById($updatedTopic['id']);
         } catch (InvalidIdException $e) {
+            $responseBody['message'] = $e->getMessage();
+            $responseBody['status'] = 404;
+        } catch (MissingTopicException $e) {
             $responseBody['message'] = $e->getMessage();
             $responseBody['status'] = 404;
         }
