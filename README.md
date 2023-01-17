@@ -161,3 +161,39 @@ For local development use `localhost:8080/api/topics` as your URL
 **Purpose:**
 - Delete all topics from the database.
 - Delete a single topic by Id from the database.
+
+**URL Params:**
+- Optional:
+  - `id=[integer]`
+
+**Success Response:**
+- Successfully deleting all topics:
+```
+{
+    "success": true,
+    "message": "All topics successfully deleted from database.",
+    "status": 200,
+    "data": []
+}
+```
+
+- Successfully deleting a topic by Id:
+```
+{
+    "success": true,
+    "message": "Topic successfully deleted from database.",
+    "status": 200,
+    "data": []
+}
+```
+
+**Failure Response:**
+- If Id is not in database:
+```
+{
+	"success": false,
+	"message": "Invalid Id",
+	"status": 404,
+	"data": []
+}
+```
