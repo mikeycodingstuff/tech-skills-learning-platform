@@ -117,6 +117,7 @@ class TopicModel
         ");
         return $query->execute();
     }
+    
     /**
      * Given an id, marks the topic as deleted in database
      *
