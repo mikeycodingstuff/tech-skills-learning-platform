@@ -74,7 +74,13 @@ class TopicModel
         $query->bindParam(':deleted', $topic['deleted']);
         return $query->execute();
     }
-
+    
+    /**
+     * Gets a topic given an Id. Throws an error if Id is not in database
+     *
+     * @param integer $id
+     * @return void
+     */
     public function getTopicById(int $id)
     {
         $query = $this->db->prepare(
