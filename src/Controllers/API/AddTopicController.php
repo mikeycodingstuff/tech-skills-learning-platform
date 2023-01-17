@@ -21,6 +21,7 @@ class AddTopicController
         $this->topicModel->addTopic($newTopic);
 
         $responseBody = [
+            'success' => true,
             'message' => 'Topic successfully added to db.',
             'status' => 200,
             'data' => []

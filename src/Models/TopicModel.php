@@ -25,8 +25,8 @@ class TopicModel
         $query = $this->db->prepare(
             "SELECT `id`, `topic_name`, `status`, `resources`, `deleted`
                 FROM `topics`
-                    WHERE `deleted` = '0';
-        ");
+                    WHERE `deleted` = '0';"
+        );
         $query->execute();
         return $query->fetchAll();
     }
@@ -66,8 +66,8 @@ class TopicModel
                 )
                 VALUES (
                 :topic_name, :status, :resources, :deleted
-                );
-        ");
+                );"
+        );
 
         $query->bindParam(':topic_name', $topic['topic_name']);
         $query->bindParam(':status', $topic['status']);
@@ -87,8 +87,8 @@ class TopicModel
         $query = $this->db->prepare(
             "SELECT `id`, `topic_name`, `status`, `resources`, `deleted`
                 FROM `topics`
-                    WHERE `id` = :id;
-        ");
+                    WHERE `id` = :id;"
+        );
         $query->bindParam(':id', $id);
         $query->execute();
         $result = $query->fetchAll();
@@ -113,8 +113,8 @@ class TopicModel
     {
         $query = $this->db->prepare(
             "UPDATE `topics`
-                SET `deleted` = '1';
-        ");
+                SET `deleted` = '1';"
+        );
         return $query->execute();
     }
     
@@ -129,9 +129,37 @@ class TopicModel
         $query = $this->db->prepare(
             "UPDATE `topics`
                 SET `deleted` = '1'
-                    WHERE `id` = :id; 
-        ");
+                    WHERE `id` = :id;"
+        );
         $query->bindParam(':id', $id);
+        $result = $query->execute();
+
+        if (!$result) {
+            throw new InvalidIdException('Invalid Id');
+        }
+
+        return $result;
+    }
+
+    /**
+     * Updates a topic's name, status and resources
+     *
+     * @param array $topic
+     * @return void
+     */
+    public function updateTopicById(array $topic)
+    {
+        $query = $this->db->prepare(
+            "UPDATE `topics`
+                SET `topic_name` = :topic_name,
+                    `status` = :status,
+                    `resources` = :resources
+                        WHERE `id` = :id"
+        );
+        $query->bindParam(':id', $topic['id']);
+        $query->bindParam(':topic_name', $topic['topic_name']);
+        $query->bindParam(':status', $topic['status']);
+        $query->bindParam(':resources', $topic['resources']);
         $result = $query->execute();
 
         if (!$result) {
