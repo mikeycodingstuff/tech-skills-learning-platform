@@ -16,7 +16,7 @@ class TopicModel
     }
 
     /**
-     * Gets all topics from the database
+     * Gets all topics from database
      *
      * @return array
      */
@@ -53,7 +53,7 @@ class TopicModel
     }
 
     /**
-     * Adds a new topic to the database
+     * Adds a new topic to database
      *
      * @param array $topic
      * @return void
@@ -115,6 +115,22 @@ class TopicModel
             "UPDATE `topics`
                 SET `deleted` = '1';
         ");
+        return $query->execute();
+    }
+    /**
+     * Given an id, marks the topic as deleted in database
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function deleteTopicById(int $id)
+    {
+        $query = $this->db->prepare(
+            "UPDATE `topics`
+                SET `deleted` = '1'
+                    WHERE `id` = :id; 
+        ");
+        $query->bindParam(':id', $id);
         return $query->execute();
     }
 }
