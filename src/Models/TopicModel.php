@@ -106,7 +106,7 @@ class TopicModel
     {
         $query = $this->db->prepare(
             "UPDATE `topics`
-                SET `deleted` = '0';
+                SET `deleted` = '1';
         ");
         return $query->execute();
     }

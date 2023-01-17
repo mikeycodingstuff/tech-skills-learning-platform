@@ -39,7 +39,7 @@ class GetTopicsController
         } else {
             $responseBody['data'] = $this->topicModel->getAllTopics();
             $responseBody['success'] = true;
-            $responseBody['message'] = 'Topic successfully retrieved from database.';
+            $responseBody['message'] = 'All topics successfully retrieved from database.';
         
             if (isset($getData['learning'])) {
                 $learningStatus = filter_var(($getData['learning']), FILTER_VALIDATE_BOOLEAN);
