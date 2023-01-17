@@ -20,7 +20,7 @@ class DeleteTopicsController
     {
         $responseBody = [
             'success' => false,
-            'message' => 'Something went wrong.',
+            'message' => 'Unexpected error.',
             'status' => 200,
             'data' => []
         ];
