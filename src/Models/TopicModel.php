@@ -132,6 +132,12 @@ class TopicModel
                     WHERE `id` = :id; 
         ");
         $query->bindParam(':id', $id);
-        return $query->execute();
+        $result = $query->execute();
+
+        if (!$result) {
+            throw new InvalidIdException('Invalid Id');
+        }
+
+        return $result;
     }
 }

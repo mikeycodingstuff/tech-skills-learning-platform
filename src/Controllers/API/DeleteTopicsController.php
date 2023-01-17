@@ -2,6 +2,7 @@
 
 namespace App\Controllers\API;
 
+use App\CustomExceptions\InvalidIdException;
 use App\Models\TopicModel;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -25,6 +26,14 @@ class DeleteTopicsController
         ];
 
         if (isset($args['id'])) {
+            try {
+                $this->topicModel->deleteTopicById($args['id']);
+                $responseBody['success'] = true;
+                $responseBody['message'] = 'Topic successfully deleted from database.';
+            } catch (InvalidIdException $e) {
+                $responseBody['message'] = $e->getMessage();
+                $responseBody['status'] = 404;
+            }
         } else {
             $this->topicModel->deleteAllTopics();
             $responseBody['success'] = true;
