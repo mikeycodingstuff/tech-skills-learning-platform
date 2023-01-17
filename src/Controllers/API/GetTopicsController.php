@@ -29,31 +29,21 @@ class GetTopicsController
         
         if (isset($args['id'])) {
             try {
-                $data = $this->topicModel->getTopicById($args['id']);
-                $responseBody = [
-                    'success' => true,
-                    'message' => 'Topic successfully retrieved from database.',
-                    'status' => 200,
-                    'data' => $data
-                ];
+                $responseBody['data'] = $this->topicModel->getTopicById($args['id']);
+                $responseBody['success'] = true;
+                $responseBody['message'] = 'Topic successfully retrieved from database.';
             } catch (InvalidIdException $e) {
                 $responseBody['message'] = $e->getMessage();
                 $responseBody['status'] = 404;
             }
         } else {
-            $allTopics = $this->topicModel->getAllTopics();
-
-            $responseBody = [
-                'success' => true,
-                'message' => 'Topics successfully retrieved from database.',
-                'status' => 200,
-                'data' => $allTopics
-            ];
-            
+            $responseBody['data'] = $this->topicModel->getAllTopics();
+            $responseBody['success'] = true;
+            $responseBody['message'] = 'Topic successfully retrieved from database.';
+        
             if (isset($getData['learning'])) {
                 $learningStatus = filter_var(($getData['learning']), FILTER_VALIDATE_BOOLEAN);
-                $filteredTopics = $this->topicModel->filterLearningTopic($allTopics, $learningStatus);
-                $responseBody['data'] = $filteredTopics;
+                $responseBody['data'] = $this->topicModel->filterLearningTopic($allTopics, $learningStatus);
             }
         }
         
