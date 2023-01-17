@@ -58,9 +58,9 @@ class TopicModel
      * Adds a new topic to database
      *
      * @param array $topic
-     * @return void
+     * @return boolean
      */
-    public function addTopic(array $topic)
+    public function addTopic(array $topic): bool
     {
         $query = $this->db->prepare(
             "INSERT INTO `topics` (
@@ -83,9 +83,9 @@ class TopicModel
      * Gets a topic given an Id. Throws an error if Id is not in database
      *
      * @param integer $id
-     * @return void
+     * @return array
      */
-    public function getTopicById(int $id)
+    public function getTopicById(int $id): array
     {
         $query = $this->db->prepare(
             "SELECT `id`, `topic_name`, `status`, `resources`, `deleted`
@@ -110,9 +110,9 @@ class TopicModel
     /**
      * Marks all topics as deleted in database
      *
-     * @return void
+     * @return boolean
      */
-    public function deleteAllTopics()
+    public function deleteAllTopics(): bool
     {
         $query = $this->db->prepare(
             "UPDATE `topics`
@@ -126,9 +126,9 @@ class TopicModel
      * Given an id, marks the topic as deleted in database
      *
      * @param integer $id
-     * @return void
+     * @return boolean
      */
-    public function deleteTopicById(int $id)
+    public function deleteTopicById(int $id): bool
     {
         $query = $this->db->prepare(
             "UPDATE `topics`
@@ -149,9 +149,9 @@ class TopicModel
      * Updates a topic's name, status and resources
      *
      * @param array $topic
-     * @return void
+     * @return boolean
      */
-    public function updateTopicById(array $topic)
+    public function updateTopicById(array $topic): bool
     {
         $query = $this->db->prepare(
             "UPDATE `topics`
