@@ -172,4 +172,14 @@ class TopicModel
 
         return $result;
     }
+
+    /**
+     * Returns last inserted id
+     *
+     * @return string
+     */
+    public function getLastTopicId(): string
+    {
+        return $this->db->lastInsertId();
+    }
 }
