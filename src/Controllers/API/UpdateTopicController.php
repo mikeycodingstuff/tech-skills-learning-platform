@@ -17,7 +17,7 @@ class UpdateTopicController
         $this->topicModel = $topicModel;
     }
 
-    public function __invoke(RequestInterface $request, ResponseInterface $response): ResponseInterface
+    public function __invoke(RequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $responseBody = [
             'success' => false,
@@ -27,6 +27,7 @@ class UpdateTopicController
         ];
 
         $updatedTopic = $request->getParsedBody();
+        $updatedTopic['id'] = $args['id'];
 
         try {
             $responseBody['data'] = $this->topicModel->getTopicById($updatedTopic['id']);
