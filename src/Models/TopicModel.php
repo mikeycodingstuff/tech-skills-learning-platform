@@ -74,7 +74,7 @@ class TopicModel
         $query->bindParam(':deleted', $topic['deleted']);
         return $query->execute();
     }
-    
+
     /**
      * Gets a topic given an Id. Throws an error if Id is not in database
      *
@@ -95,5 +95,19 @@ class TopicModel
             throw new InvalidIdException('Invalid Id');
         }
         return $result;
+    }
+
+    /**
+     * Marks all topics as deleted in database
+     *
+     * @return void
+     */
+    public function deleteAllTopics()
+    {
+        $query = $this->db->prepare(
+            "UPDATE `topics`
+                SET `deleted` = '0';
+        ");
+        return $query->execute();
     }
 }
