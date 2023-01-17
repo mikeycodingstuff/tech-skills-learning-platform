@@ -125,6 +125,15 @@ For local development use `localhost:8080/api/topics` as your URL
 **URL Params:**
 - Required:
   - `id=[integer]`
+  
+**Sends**
+```
+{
+    "topic_name": "TypeScript",
+    "status": "not learning",
+    "resources": "https://www.typescriptlang.org/docs/"
+}
+```
 
 **Success Response:**
 - Successfully editing a topic:
