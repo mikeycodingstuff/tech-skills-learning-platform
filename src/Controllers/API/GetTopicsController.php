@@ -37,7 +37,7 @@ class GetTopicsController
                     'data' => $data
                 ];
             } catch (InvalidIdException $e) {
-                $responseBody['message'] = 'Invalid Id';
+                $responseBody['message'] = $e->getMessage();
                 $responseBody['status'] = 404;
             }
         } else {

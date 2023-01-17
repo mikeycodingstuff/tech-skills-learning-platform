@@ -86,7 +86,7 @@ class TopicModel
         $query->execute();
         $result = $query->fetchAll();
         if (!$result) {
-            throw new InvalidIdException();
+            throw new InvalidIdException('Invalid Id');
         }
         return $result;
     }
