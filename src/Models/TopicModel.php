@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\CustomExceptions\InvalidIdException;
+use App\CustomExceptions\MissingTopicException;
 use PDO;
 
 class TopicModel
@@ -91,9 +92,15 @@ class TopicModel
         $query->bindParam(':id', $id);
         $query->execute();
         $result = $query->fetchAll();
+
         if (!$result) {
             throw new InvalidIdException('Invalid Id');
         }
+
+        if ($result[0]['deleted'] === '1') {
+            throw new MissingTopicException('Topic does not exist');
+        }
+        
         return $result;
     }
 
