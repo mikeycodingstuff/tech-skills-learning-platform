@@ -91,13 +91,13 @@ class TopicModel
         );
         $query->bindParam(':id', $id);
         $query->execute();
-        $result = $query->fetchAll();
+        $result = $query->fetch();
 
         if (!$result) {
             throw new InvalidIdException('Invalid Id');
         }
 
-        if ($result[0]['deleted'] === '1') {
+        if ($result['deleted'] === '1') {
             throw new MissingTopicException('Topic does not exist');
         }
         
