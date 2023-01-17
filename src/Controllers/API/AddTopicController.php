@@ -2,8 +2,8 @@
 
 namespace App\Controllers\API;
 
+use App\CustomExceptions\InvalidIdException;
 use App\Models\TopicModel;
-use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -33,8 +33,9 @@ class AddTopicController
             $responseBody['success'] = true;
             $responseBody['message'] = 'Topic successfully added to db.';
             $responseBody['data'] = $this->topicModel->getTopicById($newTopicId);
-        } catch (Exception $e) {
-
+        } catch (InvalidIdException $e) {
+            $responseBody['message'] = $e->getMessage();
+            $responseBody['status'] = 404;
         }
         
         return $response->withJson($responseBody);
