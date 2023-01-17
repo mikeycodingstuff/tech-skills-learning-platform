@@ -32,6 +32,7 @@ For local development use `localhost:8080/api/topics` as your URL
 ```
 
 **Success Response:**
+- Returns the added topic in `"data"`
 ```
 {
     "success": true,
@@ -42,7 +43,7 @@ For local development use `localhost:8080/api/topics` as your URL
 ```
 
 **Failure Response:**
-- If Id is not in database:
+- If added Id is not in database:
 ```
 {
     "success": false,
@@ -110,16 +111,42 @@ For local development use `localhost:8080/api/topics` as your URL
 - If Id is not in database:
 ```
 {
-    "success": false,
-    "message": "Invalid Id",
-    "status": 404,
-    "data": []
+	"success": false,
+	"message": "Invalid Id",
+	"status": 404,
+	"data": []
 }
 ```
 
 #### PUT
 **Purpose:**
-- Edit a topic.
+- Edit a topic by Id.
+
+**URL Params:**
+- Required:
+  - `id=[integer]`
+
+**Success Response:**
+- Successfully editing a topic:
+```
+{
+    "success": true,
+    "message": "Topic successfully updated in database.",
+    "status": 200,
+    "data": []
+}
+```
+
+**Failure Response:**
+- If Id is not in database:
+```
+{
+	"success": false,
+	"message": "Invalid Id",
+	"status": 404,
+	"data": []
+}
+```
 
 #### DELETE
 **Purpose:**
