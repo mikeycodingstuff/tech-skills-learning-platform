@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Entities\TopicEntity;
 use App\CustomExceptions\InvalidIdException;
 use PDO;
 
@@ -24,7 +23,8 @@ class TopicModel
     {
         $query = $this->db->prepare(
             "SELECT `id`, `topic_name`, `status`, `resources`, `deleted`
-                FROM `topics`;
+                FROM `topics`
+                    WHERE `deleted` = '0';
         ");
         $query->execute();
         return $query->fetchAll();
