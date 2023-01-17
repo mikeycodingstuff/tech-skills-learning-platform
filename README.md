@@ -1,38 +1,127 @@
-# Slim Framework 4 Skeleton Application
+# Tech skills learning platform
 
-Use this skeleton application to quickly setup and start working on a new Slim Framework 4 application. This application uses the latest Slim 4 with Slim PSR-7 implementation and PHP-DI container implementation along with the PHP-View template renderer. It also uses the Monolog logger.
+### A WIP application for tracking tech skills that I would like to learn, or am currently learning.
 
-This skeleton application was built for Composer. This makes setting up a new Slim Framework application quick and easy.
+This application uses Slim 4 with Slim PSR-7 implementation and PHP-DI container implementation along with the PHP-View template renderer. It also uses the Monolog logger.
 
-## Install the Application
+## Setup
 
-Create a new directory with your project name, e.g:
+1. Clone this repo: `git@github.com:mikeycodingstuff/tech-skills-learning-platform.git`
+2. Inside the directory, run `composer install` to install the slim components
+3. Import the `/db/topics.sql` file and adjust your db settings as needed in `/app/settings`
+4. Run the application locally with `composer start`
 
+## Tests
+Run unit tests locally with `composer test`
 
-```bash
-mkdir academyProject
+## Routes
+For local development use `localhost:8080/api/topics` as your URL
+
+### /topics
+#### POST
+**Purpose:**
+- Add a new topic to the database.
+
+**Sends**
+```
+{
+    "topic_name": "new topic",
+    "status": "learning",
+    "resources": "none"
+}
 ```
 
-Once inside the new directory, clone this repo:
-
-```bash
-git clone git@github.com:Mayden-Academy/slim4-skeleton.git .
+**Success Response:**
+```
+{
+    "success": true,
+    "message": "Topic successfully added to db.",
+    "status": 200,
+    "data": []
+}
 ```
 
-One cloned, you must install the slim components by running:
-
-```bash
-composer install
+**Failure Response:**
+- If Id is not in database:
+```
+{
+    "success": false,
+    "message": "Invalid Id",
+    "status": 404,
+    "data": []
+}
 ```
 
-To run the application locally:
-```bash
-composer start
+#### GET
+**Purpose:**
+- Gets all of the topics from the database.
+- Get a single topic from the database.
+- Filter topics by learning status.
 
+**URL Params:**
+- Optional:
+  - `id=[integer]`
+
+**Data Params:**
+- Optional:
+  - `learning=true`
+
+**Data Format**
 ```
-Run this command in the application directory to run the test suite
-```bash
-composer test
+"data": {
+    "id": "1",
+    "topic_name": "TypeScript",
+    "status": "learning",
+    "resources": "https://www.typescriptlang.org/docs/",
+    "deleted": "0"
+}
 ```
 
-That's it! Now go build something cool.
+**Success Response:**
+- Retrieving all topics:
+```
+{
+    "success": true,
+    "message": "All topics successfully retrieved from database.",
+    "status": 200,
+    "data": []
+}
+```
+- Retrieving a topic by id:
+```
+{
+    "success": true,
+    "message": "Topic successfully retrieved from database.",
+    "status": 200,
+    "data": []
+}
+```
+- Retrieving topics filtered by `?learning=true`:
+```
+{
+    "success": true,
+    "message": "Filtered topics successfully retrieved from database.",
+    "status": 200,
+    "data": []
+}
+```
+
+**Failure Response:**
+- If Id is not in database:
+```
+{
+    "success": false,
+    "message": "Invalid Id",
+    "status": 404,
+    "data": []
+}
+```
+
+#### PUT
+**Purpose:**
+- Edit a topic.
+
+#### DELETE
+**Purpose:**
+- Delete all topics from the database.
+- Delete a single topic by Id from the database.
