@@ -18,7 +18,7 @@ class StringValidator
         if (!empty($validateData) && strlen($validateData) <= $length) {
             return $validateData;
         } else {
-            throw new InvalidTopicException(`$fieldName is either empty or exceeds character limit`);
+            throw new InvalidTopicException($fieldName . ' is either empty or exceeds character limit');
         }
     }
 }
