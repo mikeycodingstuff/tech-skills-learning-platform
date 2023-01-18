@@ -5,6 +5,7 @@ namespace App\Controllers\API;
 use App\CustomExceptions\InvalidIdException;
 use App\CustomExceptions\MissingTopicException;
 use App\Models\TopicModel;
+use App\Sanitisers\TopicSanitiser;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -30,8 +31,9 @@ class UpdateTopicController
         $updatedTopic['id'] = $args['id'];
 
         try {
-            $responseBody['data'] = $this->topicModel->getTopicById($updatedTopic['id']);
+            $updatedTopic = TopicSanitiser::sanitiseTopic($updatedTopic);
             $this->topicModel->updateTopicById($updatedTopic);
+            $responseBody['data'] = $this->topicModel->getTopicById($updatedTopic['id']);
             $responseBody['success'] = true;
             $responseBody['message'] = 'Topic successfully updated in database.';
         } catch (InvalidIdException $e) {
