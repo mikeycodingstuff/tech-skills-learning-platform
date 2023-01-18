@@ -9,7 +9,7 @@
 
 CREATE TABLE `topics` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `topic_name` varchar(255) NOT NULL,
+  `topic_name` varchar(120) NOT NULL,
   `status` enum('not learning','learning') NOT NULL,
   `resources` varchar(10000) DEFAULT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
