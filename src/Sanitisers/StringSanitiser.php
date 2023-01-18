@@ -10,13 +10,13 @@ class StringSanitiser
      * @param string|null $string
      * @return string
      */
-    public static function sanitiseString(?string $string): string
+    public static function sanitiseString(?string $sanitiseData): string
     {
-        if ($string === null) {
+        if ($sanitiseData === null) {
             return '';
         }
 
-        $clean = filter_var($string, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $clean = filter_var($sanitiseData, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         return trim($clean);
     }
 }
