@@ -14,7 +14,7 @@ class TopicValidator
      */
     public static function validateTopic(array $topic): bool
     {
-        StringValidator::validateExistsAndLength($topic['name'], 120, 'name');
+        StringValidator::validateExistsAndLength($topic['topic_name'], 120, 'topic_name');
         self::validateLearning($topic['status']);
         StringValidator::validateExistsAndLength($topic['resources'], 10000, 'resources');
 
