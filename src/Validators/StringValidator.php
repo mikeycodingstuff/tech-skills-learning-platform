@@ -2,8 +2,6 @@
 
 namespace App\Validators;
 
-use App\CustomExceptions\InvalidTopicException;
-
 class StringValidator
 {
     /**
