@@ -2,6 +2,8 @@
 
 namespace App\Validators;
 
+use App\CustomExceptions\InvalidTopicException;
+
 class StringValidator
 {
     /**
@@ -9,14 +11,14 @@ class StringValidator
      *
      * @param string $validateData
      * @param integer $length
-     * @return bool
+     * @return string
      */
-    public static function validateExistsAndLength(string $validateData, int $length): bool
+    public static function validateExistsAndLength(string $validateData, int $length, string $fieldName): string
     {
         if (!empty($validateData) && strlen($validateData) <= $length) {
-            return true;
+            return $validateData;
+        } else {
+            throw new InvalidTopicException(`$fieldName is either empty or exceeds character limit`);
         }
-
-        return false;
     }
 }
