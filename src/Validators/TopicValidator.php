@@ -30,7 +30,7 @@ class TopicValidator
     public static function validateLearning(string $learningStatus): string
     {
         if ($learningStatus !== 'learning' && $learningStatus !== 'not learning') {
-            throw new InvalidTopicException('Learning status must be either "learning" or "not learning"');
+            throw new InvalidTopicException("Learning status must be either 'learning' or 'not learning'");
         } else {
             return $learningStatus;
         }
