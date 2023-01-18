@@ -12,9 +12,9 @@ class TopicSanitiser
      */
     public static function sanitiseTopic(array $topic): array
     {
-        $topic['name'] = StringSanitiser::sanitiseString($topic['name']);
-        $topic['status'] = StringSanitiser::sanitiseString($topic['name']);
-        $topic['resources'] = StringSanitiser::sanitiseString($topic['name']);
+        $topic['topic_name'] = StringSanitiser::sanitiseString($topic['topic_name']);
+        $topic['status'] = StringSanitiser::sanitiseString($topic['status']);
+        $topic['resources'] = StringSanitiser::sanitiseString($topic['resources']);
 
         return $topic;
     }

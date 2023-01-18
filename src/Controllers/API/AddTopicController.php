@@ -5,6 +5,7 @@ namespace App\Controllers\API;
 use App\CustomExceptions\InvalidIdException;
 use App\CustomExceptions\MissingTopicException;
 use App\Models\TopicModel;
+use App\Sanitisers\TopicSanitiser;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -29,6 +30,7 @@ class AddTopicController
         ];
 
         try {
+            $newTopic = TopicSanitiser::sanitiseTopic($newTopic);
             $this->topicModel->addTopic($newTopic);
             $newTopicId = $this->topicModel->getLastTopicId();
             $responseBody['success'] = true;
