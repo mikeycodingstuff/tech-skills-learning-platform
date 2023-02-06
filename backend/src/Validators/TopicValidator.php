@@ -16,7 +16,9 @@ class TopicValidator
     {
         StringValidator::validateExistsAndLength($topic['topic_name'], 120, 'topic_name');
         self::validateLearning($topic['status']);
-        StringValidator::validateLength($topic['resources'], 10000, 'resources');
+        if (isset($topic['resources'])) {
+            StringValidator::validateLength($topic['resources'], 10000, 'resources');
+        }
 
         return true;
     }

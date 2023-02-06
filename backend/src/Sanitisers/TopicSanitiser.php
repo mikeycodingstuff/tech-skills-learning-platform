@@ -14,7 +14,9 @@ class TopicSanitiser
     {
         $topic['topic_name'] = StringSanitiser::sanitiseString($topic['topic_name']);
         $topic['status'] = StringSanitiser::sanitiseString($topic['status']);
-        $topic['resources'] = StringSanitiser::sanitiseString($topic['resources']);
+        if (isset($topic['resources'])) {
+            $topic['resources'] = StringSanitiser::sanitiseString($topic['resources']);
+        }
 
         return $topic;
     }

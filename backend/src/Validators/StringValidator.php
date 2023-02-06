@@ -25,13 +25,14 @@ class StringValidator
 
     /**
      * Checks if a string is <= a given length
+     * If it NULL is passed returns NULL
      *
      * @param string $validateData string to be validated
      * @param integer $length length the string must not exceed
      * @param string $fieldName name of the field
-     * @return string returns the string or throws an error message
+     * @return string returns the string or NULL or throws an error message
      */
-    public static function validateLength(string $validateData, int $length, string $fieldName):  string
+    public static function validateLength(?string $validateData, int $length, string $fieldName):  ?string
     {
         if (strlen($validateData) <= $length) {
             return $validateData;
