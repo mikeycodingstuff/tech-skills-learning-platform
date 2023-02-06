@@ -14,7 +14,7 @@ CREATE TABLE `topics` (
   `resources` varchar(10000) DEFAULT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 INSERT INTO `topics` (`id`, `topic_name`, `status`, `resources`, `deleted`) VALUES
 (1, 'TypeScript', 'learning', 'https://www.typescriptlang.org/docs/', 0);
